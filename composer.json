@@ -1,0 +1,24 @@
+{
+  "name": "serhii/codewars",
+  "description": "Coping with some coding tasks",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Serhii",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "^7.0",
+    "vlucas/phpdotenv": "^5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  }
+}

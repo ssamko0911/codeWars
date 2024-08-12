@@ -1,0 +1,137 @@
+Compares well with other OOP languages ?? The purpose?
+
+Object is a combination of functions and variables;
+
+Basket, Product, User -> objects
+
+Playlist (name, creator, song_count etc) -> properties;
+Play, go to next song, shuffle ... -> methods;
+
+
+Benefits:
+1) Grouping together props and method, which is an encapsulation.
+
+2) Reduce complexity
+
+3) Reuse ?? Less changes ??
+
+4) Better design of the app
+
+===========================
+
+Creating classes: class is a blue-print.
+
+autoload - how to use properly??
+
+creation of object:
+1) create class;
+2) props -> public, protected and private;
+
+default values => ? when to use;
+If not init with defaults -> NULL always??
+
+3) methods: funcs which belong to objs
+
+Here comes this -> this is refers to the obj instance, what I use;
+$this -> what should I know about this word?
+
+4) args to methods:
+
+if I do not pass the args -> ArgCountErr;
+
+default values to avoid the error; what is the best practice for that?
+
+the passed value overrides the default one;
+
+The order is important: optional parameter (opt -> because we don't need to pass it) goes last
+TypeErrors if I do not pass a value, thinking that the dafult will be used in case of having all the defaults in place
+
+5) Named arguments:
+
+<varNameWithoutDollarSign: value>
+
+6) Constructor: __construct
+
+This is smth I need to do first; ?? -> examples of my constructors from my current job;
+
+When we create an object we want to assign values to our props;
+
+?? parent constructor -> position? is it important?
+
+7) Promoted properties: vs old-school;
+
+a single step - for declaring vars, passing args and assigning some values;
+
+8) Type-hinting
+
+an old school way - just a docs, which is telling a dev, that those are the types only;
+
+like in Jave - type before var;
+Uncaught TypeError
+
+It's still possible to pas wrong args as there's a default casting is involved (for instance - passing an int will
+be cast to a string.
+
+strict_types = 1 => I need to use this line in the place of code, where exactly the call of the construct method is
+made;
+
+9) Class type declarations;
+
+params vs args (in method declaration we of the class -> params, calling a method -> we pass some arguments);
+
+To make sure that passed value is of the proper type;
+
+function (<Type> var)
+
+10) Return type declarations:
+
+get expected values;
+
+Uncaught typeError;
+
+:void -> this is a pseudo type;
+
+11) Inheritance:
+
+To inherit props and methods (child class extends parent class' props)
+
+constructor - what is special on that?
+
+12) Methods overriding;
+
+Any methods on the child class with the same name overrides the methods of parent's class;
+Parent know nothing about child;
+
+13) visibility:
+- public (props and methods could be accessed from anywhere);
+- protected (declaring class or subclass) -> we can't access those props from any other files
+(I mean it's not only about classes). To access those properties we need some public methods;
+- private (only declaring class)
+
+14) methods visibility;
+
+Visibility -> encaps ?? What is in common?? Bundling a data; One place for data and less risks of modification
+
+The case with public -> it's allowed to set any value to the var directly;
+
+
+15) Typed Properties -> private STRING $name; > 7.4
+
+16) Encaps -> ??
+
+17) Union Types: private int|float $rating
+
+| -> pipe hepls to use several types; 
+
+18) Static properties - ??? Use or not to use?? Any object has access to that value;
+
+19) Static methods - ???
+
+20) Class constants - just cannot be changed;
+
+21) Abstract classes(defines an interface to be extended with a class; could have
+abstract props and methods) and methods (every subclass should define an abstract method; visibility is
+the same or less as in the parent);
+
+
+
