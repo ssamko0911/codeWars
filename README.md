@@ -1,6 +1,11 @@
-### php and caddy containers:
+# CodeWars project
+![Practice makes perfect](/public/img/img_1.png "CodeWars")
+
+The project is a clear representation of sharpening my coding skills.  
+
+### Start php and caddy containers:
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ```bash
