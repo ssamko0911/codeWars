@@ -13,6 +13,3 @@ function difference_of_squares(int $n): int {
 
     return abs($squareSum - $sumOfSquares);
 }
-
-echo difference_of_squares(10);
-

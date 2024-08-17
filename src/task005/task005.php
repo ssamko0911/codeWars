@@ -6,8 +6,6 @@ declare(strict_types=1);
 
 function high($x): string
 {
-    $scores = array_combine(range('a', 'z'), range(1, 26));
-
     $words = explode(' ', $x);
 
     $highScore = 0;
@@ -17,7 +15,7 @@ function high($x): string
         $tempScore = 0;
         $tempWinner = '';
         for ($j = 0; $j < strlen($words[$i]); $j++) {
-            $tempScore += $scores[$words[$i][$j]];
+            $tempScore += ord($words[$i][$j]) - 96;
             $tempWinner = $words[$i];
         }
 
@@ -29,8 +27,3 @@ function high($x): string
 
     return $winner;
 }
-
-echo high('man i need a taxi up to ubud').PHP_EOL;
-echo high('what time are we climbing up the volcano').PHP_EOL;
-echo high('take me to semynak').PHP_EOL;
-
