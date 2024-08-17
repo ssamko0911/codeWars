@@ -5,7 +5,7 @@ declare(strict_types=1);
 //https://www.codewars.com/kata/57f625992f4d53c24200070e/train/php
 
 /**
- * @param array<int|string, mixed> $tickets
+ * @param array<int, array{string, int}> $tickets
  * @param int $win
  * @return bool
  */
