@@ -6,25 +6,29 @@ declare(strict_types=1);
 
 function travel(string $address, string $zipcode): string
 {
-    $resultString = "$zipcode:/";
+    define("ZIP_CODE_LENGTH", 8);
+    $result = "$zipcode:/";
 
     $addressList = explode(',', $address);
-    $addressNumbers = [];
-    $addressStrings = [];
+    $streetNumbers = [];
+    $streetNames = [];
 
     foreach ($addressList as $address) {
-        if (strpos($address, $zipcode) && strlen($zipcode) === 8) {
+        if (strpos($address, $zipcode) && strlen($zipcode) === ZIP_CODE_LENGTH) {
             $address = str_replace($zipcode, '', $address);
-
-            $number = explode(' ', trim($address))[0];
-            $addressNumbers[] = $number;
-            $addressStrings[] = trim(substr($address, strlen($number)));
+            $streetNumber = preg_replace("/[^0-9]/", '', $address);
+            $streetNumbers[] = $streetNumber;
+            $streetName = trim(str_replace($streetNumber, '', $address));
+            $streetNames[] = $streetName;
         }
     }
 
-    if (empty($addressNumbers)) {
-        return $resultString;
+    if (empty($streetNumbers)) {
+        return $result;
     }
 
-    return rtrim($resultString, '/').implode(',', $addressStrings).'/'.implode(',', $addressNumbers);
+    $streetNumbersToString = implode(',', $streetNumbers);
+    $streetNamesToString = implode(',', $streetNames);
+
+    return rtrim($result, '/') . $streetNamesToString . '/'. $streetNumbersToString;
 }
