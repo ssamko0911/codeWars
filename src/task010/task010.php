@@ -18,7 +18,7 @@ function decipher(string $string): string
         $firstLetter = substr($restString, 0, 1);
         $lastLetter = substr($restString, -1, 1);
 
-        if (!empty($firstLetter) && $firstLetter !== ' ' || !empty($lastLetter) && $lastLetter !== ' ') {
+        if (strlen($firstLetter) !== 0  && $firstLetter !== ' ' || strlen($lastLetter) !== 0 && $lastLetter !== ' ') {
             $restString[0] = $lastLetter;
             $restString[strlen($restString) - 1] = $firstLetter;
         }
