@@ -24,12 +24,12 @@ function travel(string $address, string $zipcode): string
         }
     }
 
-    if (empty($streetNumbers)) {
+    if ([] === $streetNumbers) {
         return $result;
     }
 
     $streetNumbersToString = implode(',', $streetNumbers);
     $streetNamesToString = implode(',', $streetNames);
 
-    return rtrim($result, '/') . $streetNamesToString . '/'. $streetNumbersToString;
+    return rtrim($result, '/').$streetNamesToString.'/'.$streetNumbersToString;
 }
