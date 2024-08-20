@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/phpstorm,composer
 # Edit at https://www.toptal.com/developers/gitignore?templates=phpstorm,composer
 
+.env
+.env.local
+
 ### Composer ###
 composer.phar
 /vendor/
