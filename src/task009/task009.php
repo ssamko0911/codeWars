@@ -8,8 +8,6 @@ const ZIP_CODE_LENGTH = 8;
 
 function travel(string $address, string $zipcode): string
 {
-    $result = "$zipcode:/";
-
     $addressList = explode(',', $address);
     $streetNumbers = [];
     $streetNames = [];
@@ -25,11 +23,22 @@ function travel(string $address, string $zipcode): string
     }
 
     if ([] === $streetNumbers) {
-        return $result;
+        return sprintf("%s:/", $zipcode);
     }
 
+    return getAddressesAsString($streetNumbers, $streetNames, $zipcode);
+}
+
+/**
+ * @param string[] $streetNumbers
+ * @param string[] $streetNames
+ * @param string $zipcode
+ * @return string
+ */
+function getAddressesAsString(array $streetNumbers, array $streetNames, string $zipcode): string
+{
     $streetNumbersToString = implode(',', $streetNumbers);
     $streetNamesToString = implode(',', $streetNames);
 
-    return rtrim($result, '/').$streetNamesToString.'/'.$streetNumbersToString;
+    return sprintf("%s:/%s/%s", $zipcode, $streetNamesToString, $streetNumbersToString);
 }
