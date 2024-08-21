@@ -6,25 +6,32 @@ declare(strict_types=1);
 
 function decipher(string $string): string
 {
-    $result = '';
+    $deciphered = '';
 
     $words = explode(' ', $string);
 
     foreach ($words as $word) {
-        $getCharCode = preg_replace("/[^0-9]/", '', $word);
-        $result .= chr(intval($getCharCode));
+        $firstPart = preg_replace("/[^0-9]/", '', $word);
+        $deciphered .= chr(intval($firstPart));
 
-        $restString = trim(str_replace($getCharCode, '', $word));
-        $firstLetter = substr($restString, 0, 1);
-        $lastLetter = substr($restString, -1, 1);
+        $secondPart = trim(str_replace($firstPart, '', $word));
 
-        if (strlen($firstLetter) !== 0  && $firstLetter !== ' ' || strlen($lastLetter) !== 0 && $lastLetter !== ' ') {
-            $restString[0] = $lastLetter;
-            $restString[strlen($restString) - 1] = $firstLetter;
+        if (strlen($secondPart) !== 0) {
+            $secondPart = swapFirstAndLastLetter($secondPart);
         }
 
-        $result .= "$restString ";
+        $deciphered .= sprintf("%s ", $secondPart);
     }
 
-    return rtrim($result);
+    return trim($deciphered);
+}
+
+function swapFirstAndLastLetter(string $str): string
+{
+    $firstLetter = substr($str, 0, 1);
+    $lastLetter = substr($str, -1, 1);
+    $str[0] = $lastLetter;
+    $str[strlen($str) - 1] = $firstLetter;
+
+    return $str;
 }
