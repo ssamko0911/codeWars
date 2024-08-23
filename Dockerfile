@@ -1,24 +1,88 @@
-FROM php:8.3-fpm
+FROM composer/composer:2-bin AS composer
 
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip
+FROM mlocati/php-extension-installer:latest AS php_extension_installer
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Prod image
+FROM php:8.3-fpm-alpine AS php
 
-RUN docker-php-ext-install mbstring exif pcntl bcmath gd
+# Allow to use development versions of Symfony
+ARG STABILITY="stable"
+ENV STABILITY ${STABILITY}
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Allow to select Symfony version
+ARG SYMFONY_VERSION=""
+ENV SYMFONY_VERSION ${SYMFONY_VERSION}
+
+ENV APP_ENV=prod
 
 WORKDIR /srv/app
 
+# php extensions installer: https://github.com/mlocati/docker-php-extension-installer
+COPY --from=php_extension_installer --link /usr/bin/install-php-extensions /usr/local/bin/
+
+# persistent / runtime deps
+RUN apk add --no-cache \
+		acl \
+		fcgi \
+		file \
+		gettext \
+		git \
+	;
+
+RUN set -eux; \
+    install-php-extensions \
+    	intl \
+    	zip \
+    	apcu \
+		opcache \
+        pdo \
+    	pdo_mysql \
+        xml \
+    ;
+
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+COPY --link docker/php/conf.d/app.ini $PHP_INI_DIR/conf.d/
+COPY --link docker/php/conf.d/app.prod.ini $PHP_INI_DIR/conf.d/
+
+COPY --link docker/php/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
+RUN mkdir -p /var/run/php
+
+COPY --link docker/php/docker-healthcheck.sh /usr/local/bin/docker-healthcheck
+RUN chmod +x /usr/local/bin/docker-healthcheck
+
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
+
+COPY --link docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
+
+ENTRYPOINT ["docker-entrypoint"]
+CMD ["php-fpm"]
+
+# https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
-COPY . /srv/app
+COPY --from=composer --link /composer /usr/bin/composer
 
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+# prevent the reinstallation of vendors at every changes in the source code
+COPY --link composer.* symfony.* ./
+RUN set -eux; \
+    if [ -f composer.json ]; then \
+		composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress; \
+		composer clear-cache; \
+    fi
+
+# Debug image
+FROM php AS php-debug
+
+ENV APP_ENV=dev XDEBUG_MODE=off
+VOLUME /srv/app/var/
+
+RUN rm "$PHP_INI_DIR/conf.d/app.prod.ini"; \
+	mv "$PHP_INI_DIR/php.ini" "$PHP_INI_DIR/php.ini-production"; \
+	mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+COPY --link docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
+
+RUN set -eux; \
+	install-php-extensions xdebug
