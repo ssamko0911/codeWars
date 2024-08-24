@@ -12,9 +12,8 @@ function findEvenIndex(array $array): int
     for ($i = 0; $i < count($array); $i++) {
         $leftPart = getLeftPart($array, $i);
         $rightPart = getRightPart($array, $i);
-        $comparison = compareParts($leftPart, $rightPart);
 
-        if ($comparison) {
+        if (array_sum($leftPart) === array_sum($rightPart)) {
             return $i;
         }
     }
@@ -22,19 +21,7 @@ function findEvenIndex(array $array): int
     return -1;
 }
 
-/**
- * @param int[] $leftPart
- * @param int[] $rightPart
- * @return bool
- */
-function compareParts(array $leftPart, array $rightPart): bool
-{
-    if (array_sum($leftPart) === array_sum($rightPart)) {
-        return true;
-    }
-
-    return false;
-}
+// TODO: getRightPart & getLeftPart -> one func;
 
 /**
  * @param int[] $array
