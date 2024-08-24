@@ -14,16 +14,19 @@ function getExpandedForm(int $number): string
 
     for ($i = 0; $i < strlen($numberAsString); $i++) {
         if ($numberAsString[$i] !== ZERO_CHARACTER) {
-            $numberExpandedForm .= getPlaceNumber($i, $numberAsString);
+            $numberExpandedForm .= getPlaceDigit($i, $numberAsString);
         }
     }
 
     return rtrim($numberExpandedForm, ' +');
 }
 
-function getPlaceNumber(int $digitIndex, string $number): string
+function getPlaceDigit(int $digitIndex, string $number): string
 {
     $zeroQuantity = strlen($number) - $digitIndex - 1;
+
+    //TODO: str_repeat -> var
+    //TODO: sprintf -> var
 
     return sprintf('%d + ', $number[$digitIndex] . str_repeat(ZERO_CHARACTER, $zeroQuantity));
 }
