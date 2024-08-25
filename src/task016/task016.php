@@ -8,25 +8,24 @@ const ZERO_CHARACTER = '0';
 
 function getExpandedForm(int $number): string
 {
-    $numberAsString =  strval($number);
+    $numberAsString = strval($number);
 
     $numberExpandedForm = '';
 
     for ($i = 0; $i < strlen($numberAsString); $i++) {
         if ($numberAsString[$i] !== ZERO_CHARACTER) {
-            $numberExpandedForm .= getPlaceDigit($i, $numberAsString);
+            $numberExpandedForm .= getNumberFromPlaceDigit($i, $numberAsString);
         }
     }
 
     return rtrim($numberExpandedForm, ' +');
 }
 
-function getPlaceDigit(int $digitIndex, string $number): string
+function getNumberFromPlaceDigit(int $digitIndex, string $digit): string
 {
-    $zeroQuantity = strlen($number) - $digitIndex - 1;
+    $zeroQuantity = strlen($digit) - $digitIndex - 1;
+    $numberZeroes = str_repeat(ZERO_CHARACTER, $zeroQuantity);
+    $number = $digit[$digitIndex].$numberZeroes;
 
-    //TODO: str_repeat -> var
-    //TODO: sprintf -> var
-
-    return sprintf('%d + ', $number[$digitIndex] . str_repeat(ZERO_CHARACTER, $zeroQuantity));
+    return sprintf('%d + ', $number);
 }
