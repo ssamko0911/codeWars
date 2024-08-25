@@ -26,6 +26,3 @@ function wave(string $people): array
 
     return $result;
 }
-
-print_r(wave("hello"));
-print_r(wave("two words"));
