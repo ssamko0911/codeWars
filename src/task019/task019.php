@@ -10,8 +10,8 @@ declare(strict_types=1);
 function findEvenIndex(array $array): int
 {
     for ($i = 0; $i < count($array); $i++) {
-        $leftPart = getLeftPart($array, $i);
-        $rightPart = getRightPart($array, $i);
+        $leftPart = getArrayPart($array, $i, true);
+        $rightPart = getArrayPart($array, $i);
 
         if (array_sum($leftPart) === array_sum($rightPart)) {
             return $i;
@@ -21,32 +21,27 @@ function findEvenIndex(array $array): int
     return -1;
 }
 
-// TODO: getRightPart & getLeftPart -> one func;
-
 /**
  * @param int[] $array
  * @param int $index
- * @return int[]
+ * @param bool $isLeft
+ * @return array
  */
-function getRightPart(array $array, int $index): array
+function getArrayPart(array $array, int $index, bool $isLeft = false): array
 {
-    if ($index === count($array) - 1) {
+    if ($isLeft && $index === 0) {
         return [];
     }
 
-    return array_slice($array, $index + 1);
-}
-
-/**
- * @param int[] $array
- * @param int $index
- * @return int[]
- */
-function getLeftPart(array $array, int $index): array
-{
-    if ($index === 0) {
+    if (!$isLeft && $index === count($array) - 1) {
         return [];
     }
 
-    return array_slice($array, 0, $index);
+    if ($isLeft) {
+        return array_slice($array, 0, $index);
+    } else {
+        return array_slice($array, $index + 1);
+    }
 }
+
+echo findEvenIndex([1, 2, 3, 4, 5, 6]);
