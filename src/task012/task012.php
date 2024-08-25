@@ -35,20 +35,23 @@ const NATO_ALPHABET = [
 
 function toNatoAlphabet(string $string): string
 {
-    $result = '';
+    $words = str_split($string);
 
-    $words = explode(' ', $string);
+    $encoded = array_map('encodeCharToNatoAlphabet', $words);
 
-    foreach ($words as $word) {
-        for ($i = 0; $i < strlen($word); $i++) {
-            $key = strtoupper($word[$i]);
-            if (array_key_exists($key, NATO_ALPHABET)) {
-                $result .= NATO_ALPHABET[$key].' ';
-            } else {
-                $result .= $word[$i].' ';
-            }
-        }
+    return rtrim(implode('', $encoded));
+}
+
+function encodeCharToNatoAlphabet(string $char): string
+{
+    if ($char === ' ') {
+        return '';
     }
 
-    return rtrim($result);
+    $key = strtoupper($char);
+    if (array_key_exists($key, NATO_ALPHABET)) {
+        return NATO_ALPHABET[$key].' ';
+    } else {
+        return $char.' ';
+    }
 }
