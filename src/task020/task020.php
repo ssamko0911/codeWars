@@ -9,20 +9,16 @@ const SCORES = [
     '?' => 3,
 ];
 
-function balance(string $l, string $r): string
+function balance(string $leftString, string $rightString): string
 {
-    $scoreLeft = getScore($l);
-    $scoreRight = getScore($r);
+    $scoreLeft = getScore($leftString);
+    $scoreRight = getScore($rightString);
 
-    if ($scoreLeft > $scoreRight) {
-        $balanced = 'Left';
-    } elseif ($scoreLeft < $scoreRight) {
-        $balanced = 'Right';
-    } else {
-        $balanced = 'Balance';
+    if ($scoreLeft === $scoreRight) {
+        return 'Balance';
     }
 
-    return $balanced;
+    return $scoreLeft > $scoreRight ? 'Left' : 'Right';
 }
 
 function getScore(string $str): int
@@ -37,5 +33,3 @@ function getScore(string $str): int
 
     return $score;
 }
-
-echo balance("!!???!????", "??!!?!!!!!!!");
