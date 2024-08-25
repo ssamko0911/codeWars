@@ -43,5 +43,3 @@ function getArrayPart(array $array, int $index, bool $isLeft = false): array
         return array_slice($array, $index + 1);
     }
 }
-
-echo findEvenIndex([1, 2, 3, 4, 5, 6]);

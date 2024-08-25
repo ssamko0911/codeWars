@@ -47,14 +47,3 @@ function fruit($reels, $spins)
         return 0;
     }
 }
-
-$reel1 = ["King", "Jack", "Wild", "Bell", "Star", "Seven", "Queen", "Cherry", "Shell", "Bar"];
-$reel2 = ["Star", "Bar", "Jack", "Seven", "Queen", "Wild", "King", "Bell", "Cherry", "Shell"];
-$reel3 = ["King", "Bell", "Jack", "Shell", "Star", "Cherry", "Queen", "Bar", "Wild", "Seven"];
-$spin = [0, 5, 0];
-
-echo fruit([
-        $reel1,
-        $reel2,
-        $reel3
-    ], $spin) . PHP_EOL;
