@@ -75,11 +75,3 @@ function getScores(array $str, array $scores): int
 
     return $score;
 }
-
-$fight1 = "elizo**wbdd";
-$fight2 = "*wwwwww*z*";
-$fight3 = "z*z*z*zs";
-
-echo getWinner($fight1) . PHP_EOL;
-echo getWinner($fight2) . PHP_EOL;
-echo getWinner($fight3) . PHP_EOL;
