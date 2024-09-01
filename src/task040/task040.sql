@@ -6,7 +6,6 @@ CREATE TABLE demographics
     name     varchar NOT NULL,
     birthday date    NOT NULL,
     race     varchar NOT NULL
-
 );
 
 INSERT INTO demographics (id, name, birthday, race)

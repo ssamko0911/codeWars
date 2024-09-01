@@ -5,7 +5,6 @@ CREATE TABLE decimals
     id      integer NOT NULL,
     number1 float   NOT NULL,
     number2 float   NOT NULL
-
 );
 
 INSERT INTO decimals (id, number1, number2)
