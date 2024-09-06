@@ -173,12 +173,10 @@ class SnakesLadders
             }
         }
 
-        if ($preparedDice['duplicate'] && $preparedDice['dupCount'] !== 1 && $makeTurn === 'playerOne') {
+        if ($preparedDice['duplicate'] && $preparedDice['dupCount'] <= 1 && $makeTurn === 'playerOne') {
             $this->isPlayerOneTurn = true;
-            echo 'P1: ' . $this->$makeTurn->getPosition() . PHP_EOL;
-        } else if ($preparedDice['duplicate'] && $preparedDice['dupCount'] !== 1 && $makeTurn === 'playerTwo'){
+        } else if ($preparedDice['duplicate'] && $preparedDice['dupCount'] <= 1 && $makeTurn === 'playerTwo'){
             $this->isPlayerOneTurn = false;
-            echo 'P1: ' . $this->$makeTurn->getPosition() . PHP_EOL;
         }
 
         $this->$makeTurn->setPosition($nextTurn);
