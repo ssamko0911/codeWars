@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 //https://www.codewars.com/kata/5552101f47fc5178b1000050/train/php
 
-function digitPower($number, $power): int
+function digitPower(int $number, int $power): int
 {
     $numberAsString = strval($number);
 

@@ -9,7 +9,7 @@ const RAT_STRING_LENGTH = 2;
 const RIGHT_DIRECTION_RAT = '~O';
 const LEFT_DIRECTION_RAT = 'O~';
 
-function countDeafRats($town): int
+function countDeafRats(string $town): int
 {
     if (str_starts_with($town, PIPER)) {
         return countDeaf($town, true);
@@ -26,7 +26,7 @@ function countDeafRats($town): int
     return $leftHeard + $rightHeard;
 }
 
-function countDeaf($town, $isPiperPositionStart = false): int
+function countDeaf(string $town, bool $isPiperPositionStart = false): int
 {
     $deafRat = LEFT_DIRECTION_RAT;
 
