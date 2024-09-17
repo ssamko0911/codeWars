@@ -8,12 +8,12 @@ const HOUR_TO_SECONDS = 3600;
 const TIME_UNIT = 60;
 
 /**
- * @param $speedTortoiseOne
- * @param $speedTortoiseTwo
- * @param $distance
+ * @param int $speedTortoiseOne
+ * @param int $speedTortoiseTwo
+ * @param int $distance
  * @return int[]|null
  */
-function race($speedTortoiseOne, $speedTortoiseTwo, $distance): array|null
+function race(int $speedTortoiseOne, int $speedTortoiseTwo, int $distance): array|null
 {
     if ($speedTortoiseOne >= $speedTortoiseTwo) {
         return null;
