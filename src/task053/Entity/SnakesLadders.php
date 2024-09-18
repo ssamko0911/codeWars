@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\task053\Entity;
 
+use App\task053\GameValidator\GameValidator;
+
 class SnakesLadders
 {
     public array $snakes = [
@@ -110,20 +112,22 @@ class SnakesLadders
 
     public Player $playerTwo;
 
+    public GameValidator $validator;
+
     public int $dupLimit = 1;
 
     function __construct(
-
     )
     {
         $this->playerOne = new Player(1);
         $this->playerTwo = new Player(2);
+        $this->validator = new GameValidator();
     }
 
     public function play($die1, $die2)
     {
         $dupCount = 0;
-        if ($die1 === $die2) {
+        if ($this->validator->isEqualDiceValues($die1, $die2)) {
             $dupCount = 1;
         }
 
