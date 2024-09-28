@@ -26,7 +26,18 @@ function countX($str): int
     return $count;
 }
 
-echo land_perimeter(["OXOOOX", "OXOXOO", "XXOOOX", "OXXXOO", "OOXOOX", "OXOOOO", "OOXOOX", "OOXOOO", "OXOOOO", "OXOOXX"]);
+echo land_perimeter([
+    "OXOOOX",
+    "OXOXOO",
+    "XXOOOX",
+    "OXXXOO",
+    "OOXOOX",
+    "OXOOOO",
+    "OOXOOX",
+    "OOXOOO",
+    "OXOOOO",
+    "OXOOXX"]
+) . PHP_EOL;
 echo land_perimeter([
     "OXOOO",
     "OOXXX",
@@ -39,6 +50,10 @@ echo land_perimeter([
     "OXOOX",
     "XOOOO",
     "OOOXO"
-]);
+]) . PHP_EOL;
 
-
+echo land_perimeter(['XOOXO',
+    'XOOXO',
+    'OOOXO',
+    'XXOXO',
+    'OXOOO'] ) . PHP_EOL;
